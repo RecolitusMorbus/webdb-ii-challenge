@@ -28,10 +28,16 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// router.post('/', (req, res) => {
-//   Selection
-//     .insert(req.body, 'id')
-//     .into()
-// })
+router.post('/', (req, res) => {
+  Selection
+    .insert(req.body, 'id')
+    .into('cars')
+    .then(tradeIn => {
+      res.status(201).json(tradeIn);
+    })
+    .catch(err => {
+      res.status(500).json({ err: "Hah, not on your life, chump." });
+    });
+});
 
 module.exports = router;

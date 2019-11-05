@@ -40,4 +40,32 @@ router.post('/', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  const changes = req.body;
+
+  Selection('cars')
+    .where({ id: req.params.id })
+    .update(changes)
+    .then(repairs => {
+      res.status(200).json(repairs);
+    })
+    .catch(err => {
+      res.status(500).json({ err: "Yeah, we'll hold onto your vehicle until you get the money." });
+    });
+});
+
+router.delete('/:id', (req, res) => {
+  const changes = req.body;
+
+  Selection('cars')
+    .where({ id: req.params.id })
+    .delete()
+    .then(repairs => {
+      res.status(200).json(repairs);
+    })
+    .catch(err => {
+      res.status(500).json({ err: "Sir, that car is totaled. We can't take it." });
+    });
+});
+
 module.exports = router;
